@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title> Book Collection</title>
+    </head>
+    <body>
+      <main>
+        <ul>
+         <% books.forEach(book => { %>
+           <img src=<%= book.image %>>
+            <li>Book title: <%= book.title %></li>
+            <li>Author: <%= book.author %></li>
+            <li>Description: <%= book.description %></li>
+          <%}) %>
+        </ul>
+      </main>
+    </body>
+</html>

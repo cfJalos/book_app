@@ -39,7 +39,7 @@ function formInfoCatch (req,res){
     .then(data => {
       const bookArr = data.body.items;
       const finalBooks = bookArr.map(book => new Book(book.volumeInfo));
-      res.render('pages/show', {books: finalBooks})
+      res.render('pages/search/show', {books: finalBooks})
   })
 }
 
@@ -51,4 +51,13 @@ function renderSearch (req,res){
 
 function homePage (req,res) {
   res.render('pages/index');
+}
+
+function Book (book) {
+  this.image = book.imageLinks.thumbnail;
+  this.title = book.title;
+  this.author = book.authors;
+  this.description = book.description;
+
+
 }

@@ -1,7 +1,8 @@
 # Book_app
 
 **Author**: Czarl Jalos && Matt Ravenmoore
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 1.0.3
+ (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
 
@@ -47,6 +48,3 @@ Currently using:
 
 SERVER FIX FOR STUCK OPEN:
 sudo killall -9 node credit ta Kait.
-
-Colaborations Paul,Keith,
-Colab on getting DB working Czarl,

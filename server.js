@@ -19,13 +19,15 @@ app.use(express.urlencoded({extended:true}));
 const PORT = process.env.PORT;
 
 //Routes
-app.get('/hello', (req, res) => res.send("hello World"));
+app.get('/test', (req, res) => res.send("hello testing World"));
 app.get('/', homePage);
-app.get('/searches', renderSearch);
-app.post('/searchform', formInfoCatch);
+app.get('/searches/new', renderSearch);
+app.post('/search', formInfoCatch);
 app.use('*', noPageHandler);
+
 app.use((err, req, res, next) => {
   res.status(500).send(`Welcome to the DarkSide we have Cupcakes and a Server Error: ${err.message} : ${err.txt}`);
+});
 
 app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
@@ -41,21 +43,21 @@ function formInfoCatch (req,res){
     .then(data => {
       const bookArr = data.body.items;
       const finalBooks = bookArr.map(book => new Book(book.volumeInfo));
-      res.render('pages/search/show', {books: finalBooks})
+      res.status(200).render('pages/search/show', {books: finalBooks})
     })
+    .catch(err => {throw new Error(err.message);})
 }
 
 function renderSearch (req,res){
   res.render('pages/search/new')
 }
 
-
-
 function homePage (req,res) {
   res.render('pages/index');
 }
 
 function noPageHandler(request, response) {
+// need a redriect to /error
   response.status(404).send('This is not the Place you are Looking for Try again: Route Not found');
 }
 

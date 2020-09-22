@@ -2,11 +2,19 @@
 <html lang="en">
   <head>
     <title>Book Collection</title>
+    <link href="reset.css" rel="stylesheet"/>
+    <link href="base.css" rel="stylesheet"/>
+    <link href="layout.css" rel="stylesheet"/>
   </head>
   <body>
+    <header>
+      <h1>Hello We are dragons</h1>
+      <a href="/test">This is a link to our test route</a>
+      <a href='/searches/new'>Search for books</a>
+    </header>
     <main>
       <h4>Search by Title or Author</h4>
-      <form action="/searchform" method="post">
+      <form action="/search" method="post">
         <input type="text" name="search" placeholder="Enter a title or author" required>
         <fieldset>
           <label for="title">

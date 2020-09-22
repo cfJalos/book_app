@@ -16,14 +16,16 @@ app.use(express.static('./public'));
 app.use(express.urlencoded({extended:true}));
 
 //global variables
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 //Routes
 app.get('/hello', (req, res) => res.send("hello World"));
 app.get('/', homePage);
 app.get('/searches', renderSearch);
 app.post('/searchform', formInfoCatch);
-app.use('*', errorHandler);
+app.use('*', noPageHandler);
+app.use((err, req, res, next) => {
+  res.status(500).send(`Welcome to the DarkSide we have Cupcakes and a Server Error: ${err.message} : ${err.txt}`);
 
 app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
@@ -40,7 +42,7 @@ function formInfoCatch (req,res){
       const bookArr = data.body.items;
       const finalBooks = bookArr.map(book => new Book(book.volumeInfo));
       res.render('pages/search/show', {books: finalBooks})
-  })
+    })
 }
 
 function renderSearch (req,res){
@@ -53,8 +55,8 @@ function homePage (req,res) {
   res.render('pages/index');
 }
 
-function errorHandler(request, response) {
-  response.status(404).send('STATUS:500 Error, wrong path');
+function noPageHandler(request, response) {
+  response.status(404).send('This is not the Place you are Looking for Try again: Route Not found');
 }
 
 function Book (book) {

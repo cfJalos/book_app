@@ -42,7 +42,8 @@ Currently using:
 
 ## work log
 
-[See Feature log](worklog.md)
+[Worklog](worklog.md)
+[Style Guide](styleguide.md)
 
 ## Credits and Collaborations
 

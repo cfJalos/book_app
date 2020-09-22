@@ -3,7 +3,6 @@
 }
 body {
   background-color: rgb(18, 106, 207);
-  display: flex;
 }
 #resultbox{
   background-color: rgba(68, 66, 65, 0.719);

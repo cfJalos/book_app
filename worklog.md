@@ -45,3 +45,11 @@
 * Start time: 4:10pm
 * Finish time: :pm
 * Actual time needed to complete:30min
+
+### Feature 05
+
+* Name of feature: Styling the pages
+* Estimate of time needed to complete: 2 hours 30 min
+* Start time: 1:15 pm
+* Finish time: -:--pm
+* Actual time needed to complete: - hours -- min

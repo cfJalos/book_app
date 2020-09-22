@@ -62,7 +62,7 @@ function noPageHandler(request, response) {
 function Book (book) {
   console.log(book);
   this.image = book.imageLinks.thumbnail ? book.imageLinks.thumbnail : 'public/img/J5LVHEL.jpg';
-  this.title = book.title ? book.title : 'Book title';
-  this.author = book.authors ? book.authors : 'Book Author';
-  this.description = book.description ? book.description : 'qweqweqwe';
+  this.title = book.title ? book.title : 'the Book title seems to be missing';
+  this.author = book.authors ? book.authors : 'The Book Author Info is Missing';
+  this.description = book.description ? book.description : 'The book descriptions seems to be missing from the Database we applogise for the inconvience';
 }

@@ -23,7 +23,7 @@ app.get('/hello', (req, res) => res.send("hello World"));
 app.get('/', homePage);
 app.get('/searches', renderSearch);
 app.post('/searchform', formInfoCatch);
-
+app.use('*', errorHandler);
 
 app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
@@ -53,11 +53,14 @@ function homePage (req,res) {
   res.render('pages/index');
 }
 
+function errorHandler(request, response) {
+  response.status(404).send('STATUS:500 Error, wrong path');
+}
+
 function Book (book) {
-  this.image = book.imageLinks.thumbnail;
-  this.title = book.title;
-  this.author = book.authors;
-  this.description = book.description;
-
-
+  console.log(book);
+  this.image = book.imageLinks.thumbnail ? book.imageLinks.thumbnail : 'public/img/J5LVHEL.jpg';
+  this.title = book.title ? book.title : 'Book title';
+  this.author = book.authors ? book.authors : 'Book Author';
+  this.description = book.description ? book.description : 'qweqweqwe';
 }

@@ -6,7 +6,7 @@
 
 ## Overview
 
-This is an api to collect data and distribute it to a front end location information finding page.
+This is a book keeping app that pulls book data from google books and will store a personal library for the user to have thier books.
 
 ## Getting Started
 

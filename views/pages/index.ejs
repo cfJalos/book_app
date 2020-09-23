@@ -26,9 +26,11 @@
            <img class="coverimg" src="<%= book.image_url %>">
             <li class = "title">Book title: <%= book.title %></li>
             <li class="author">Author: <%= book.author %></li>
-            <button class='details-btn'>View Details</button>
-          </ul>
-          <% }) %>
+            <div>
+              <button class="detail_button"><a href="/books/<%= book.id %>">View Details</button>
+            </div>
+          </article>
+        <% }) %>
         </section>
       
       

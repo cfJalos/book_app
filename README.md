@@ -10,15 +10,18 @@ This is a book keeping app that pulls book data from google books and will store
 
 ## Getting Started
 
-First Clone down the Repo from gitHub located at :
-
-then install dependacnys:
+1. install dependacnys:
 you can do this individualy or as one command witn (npm i)
 
-* Express
-* dotenv
-* superAgent
-* EJS
+  * Express
+  * dotenv
+  * superAgent
+  * EJS
+  * postgres
+
+1. Clone down the Repo from gitHub located at :
+
+1. create a postgress database named and link the books.sql file
 
 ## Architecture
 
@@ -31,6 +34,7 @@ Currently using:
 * JavaScript
 * heroku
 * superAgent
+* postgres
 
 ## Change Log
 
@@ -39,6 +43,8 @@ Currently using:
 09-21-2020 3:05pm PST - App is now has a search bar for searching books by title and authors.
 
 09-21-2020 4:02pm PST - App now communicates with google books and displays data in a useable way.
+
+09-22-2020 4:02pm PST - App has a database hooked up and can display from that database (can not store yet)
 
 ## work log
 

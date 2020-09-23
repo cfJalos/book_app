@@ -26,6 +26,7 @@ app.get('/', homePage);
 app.get('/books/:id', getOneBook);
 app.get('/searches/new', renderSearch);
 app.post('/search', formInfoCatch);
+app.get('/error', (req, res) => res.render('pages/error'));
 app.use('*', noPageHandler);
 
 const client = new pg.Client(process.env.DATABASE_URL);
@@ -33,13 +34,9 @@ client.on('error', error => {
   console.log(error);
 });
 
-
-
 app.use((err, req, res, next) => {
-  res.status(500).render('/pages/error');
+  res.status(500).redirect('/error');
 });
-
-
 
 function formInfoCatch (req,res){
   const searchContent = req.body.search[0];
@@ -79,18 +76,20 @@ function getOneBook(req, res){
   
   const sql = 'SELECT * FROM books WHERE id=$1;';
   const safeValues = [id];
+  console.log(safeValues)
   client.query(sql, safeValues)
     .then(results => {
       // results.rows will look like this: [{my bo}]
-      const myChosenBook = results.rows[0];
-      res.render('pages/books/detail', {book: myChosenBook});
+      const book = results.rows[0];
+      console.log(book)
+      res.render('pages/books/detail.ejs', {book: book})
     })
     .catch(err => {throw new Error(err.message);})
 }
 
 function noPageHandler(request, response) {
 // need a redriect to /error
-  response.status(404).render('/pages/error');
+  response.status(404).send('rawr404');
 }
 
 function Book (book) {

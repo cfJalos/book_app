@@ -26,7 +26,6 @@ app.get('/', homePage);
 app.get('/books/:id', getOneBook);
 app.get('/searches/new', renderSearch);
 app.post('/search', formInfoCatch);
-app.get('/error', (req, res) => res.render('pages/error'));
 app.use('*', noPageHandler);
 
 const client = new pg.Client(process.env.DATABASE_URL);
@@ -35,8 +34,9 @@ client.on('error', error => {
 });
 
 app.use((err, req, res, next) => {
-  res.status(500).redirect('/error');
+  res.status(500).render('./pages/error.ejs',{error: err, error_Msg: err.message});
 });
+
 
 function formInfoCatch (req,res){
   const searchContent = req.body.search[0];
@@ -50,7 +50,6 @@ function formInfoCatch (req,res){
       const finalBooks = bookArr.map(book => new Book(book.volumeInfo));
       res.status(200).render('pages/search/show', {books: finalBooks})
     })
-    .catch(err => {throw new Error(err.message);})
 }
 
 function renderSearch (req,res){
@@ -68,7 +67,7 @@ function homePage (req,res) {
         bookList : allbooks,
         numOfBooks : countBooks
       });
-    }).catch(err => {throw new Error(err.message);})
+    })
 }
 
 function getOneBook(req, res){
@@ -84,12 +83,11 @@ function getOneBook(req, res){
       console.log(book)
       res.render('pages/books/detail.ejs', {book: book})
     })
-    .catch(err => {throw new Error(err.message);})
 }
 
 function noPageHandler(request, response) {
 // need a redriect to /error
-  response.status(404).send('rawr404');
+  response.status(404).send('./pages/error.ejs',{error: err, error_Mes: err.message});
 }
 
 function Book (book) {

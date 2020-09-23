@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Book Collection</title>
+    <link href="./styles/reset.css" rel="stylesheet"/>
+    <link href="./styles/base.css" rel="stylesheet"/>
+    <link href="./styles/layout.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <header>
+      <h1>Hello We are dragons</h1>
+      <a href="/test">This is a link to our test route</a>
+      <a href='/searches/new'>Search for books</a>
+    </header>
+    <main>
+      <h4>My Book Collection</h4><p><%=numOfBooks %></p>
+      <section id="bookbox">
+        <!-- make a form? for submit btn -->
+          <ul class='books'>
+            <img class="coverimg" src="<%= book.image_url %>">
+            <li class = "title">Book title: <%= book.title %></li>
+            <li class="author">Author: <%= book.author %></li>
+            <button class='details-btn'>View Details</button>
+          </ul>
+          <% }) %>
+        </section>
+      
+      
+    </main>
+  </body>
+</html>

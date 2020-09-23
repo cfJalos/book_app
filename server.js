@@ -36,7 +36,7 @@ client.on('error', error => {
 
 
 app.use((err, req, res, next) => {
-  res.status(500).send(`Welcome to the DarkSide we have Cupcakes and a Server Error: ${err.message} : ${err.txt}`);
+  res.status(500).render('/pages/error');
 });
 
 
@@ -90,7 +90,7 @@ function getOneBook(req, res){
 
 function noPageHandler(request, response) {
 // need a redriect to /error
-  response.status(404).send('This is not the Place you are Looking for Try again: Route Not found');
+  response.status(404).render('/pages/error');
 }
 
 function Book (book) {

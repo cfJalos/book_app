@@ -50,6 +50,22 @@
 
 * Name of feature: Styling the pages
 * Estimate of time needed to complete: 2 hours 30 min
-* Start time: 1:15 pm
-* Finish time: -:--pm
-* Actual time needed to complete: - hours -- min
+* Start time: 9:15 pm
+* Finish time: 11:00pm
+* Actual time needed to complete: 1hours  45min
+
+### Feature 06
+
+* Name of feature: adding the Database
+* Estimate of time needed to complete: 0 hours 45 min
+* Start time: 1:45 pm
+* Finish time: 2:25pm
+* Actual time needed to complete: - hours 35 min
+
+### Feature 07
+
+* Name of feature: Updating index
+* Estimate of time needed to complete: 1 hours -- min
+* Start time: 2:05 pm
+* Finish time: 4:45pm
+* Actual time needed to complete: 2 hours 40 min

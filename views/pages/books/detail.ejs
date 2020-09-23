@@ -14,13 +14,15 @@
     </header>
     <main>
       <h4>My Book Collection</h4><p><%=numOfBooks %></p>
-      <section id="bookbox">
-        <!-- make a form? for submit btn -->
+      <section id="one-book">
+        
           <ul class='books'>
             <img class="coverimg" src="<%= book.image_url %>">
             <li class = "title">Book title: <%= book.title %></li>
             <li class="author">Author: <%= book.author %></li>
-            <button class='details-btn'>View Details</button>
+            <li class= "description">Description: <%= book.description %></li>
+            <li class="isbn">ISBN: <%= book.isbn %></li> 
+            <li class="bookshelf">Bookshelf: </li>
           </ul>
           <% }) %>
         </section>

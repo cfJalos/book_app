@@ -5,6 +5,7 @@
 require('dotenv').config();
 const express = require('express');
 const superagent = require('superagent');
+const pg = require('pg');
 require('ejs');
 
 const app = express();
@@ -15,23 +16,30 @@ app.set('view engine', 'ejs');
 app.use(express.static('./public'));
 app.use(express.urlencoded({extended:true}));
 
+
 //global variables
 const PORT = process.env.PORT;
 
 //Routes
-app.get('/test', (req, res) => res.send("hello testing World"));
+app.get('/test', (req, res) => res.send('hello testing World'));
 app.get('/', homePage);
+app.get('/books/:id', getOneBook);
 app.get('/searches/new', renderSearch);
 app.post('/search', formInfoCatch);
 app.use('*', noPageHandler);
+
+const client = new pg.Client(process.env.DATABASE_URL);
+client.on('error', error => {
+  console.log(error);
+});
+
+
 
 app.use((err, req, res, next) => {
   res.status(500).send(`Welcome to the DarkSide we have Cupcakes and a Server Error: ${err.message} : ${err.txt}`);
 });
 
-app.listen(PORT, () => {
-  console.log(`listening on ${PORT}`);
-})
+
 
 function formInfoCatch (req,res){
   const searchContent = req.body.search[0];
@@ -53,7 +61,31 @@ function renderSearch (req,res){
 }
 
 function homePage (req,res) {
-  res.render('pages/index');
+  const SQL = 'SELECT * FROM books;';
+  client.query(SQL)
+    .then(results => {
+      console.log(results);
+      let countBooks = results.rowCount;
+      const allbooks = results.rows;
+      res.render('pages/index.ejs', {
+        bookList : allbooks,
+        numOfBooks : countBooks
+      });
+    }).catch(err => {throw new Error(err.message);})
+}
+
+function getOneBook(req, res){
+  const id = req.params.id;
+  
+  const sql = 'SELECT * FROM books WHERE id=$1;';
+  const safeValues = [id];
+  client.query(sql, safeValues)
+    .then(results => {
+      // results.rows will look like this: [{my bo}]
+      const myChosenBook = results.rows[0];
+      res.render('pages/books/detail', {book: myChosenBook});
+    })
+    .catch(err => {throw new Error(err.message);})
 }
 
 function noPageHandler(request, response) {
@@ -68,3 +100,10 @@ function Book (book) {
   this.author = book.authors ? book.authors : 'The Book Author Info is Missing';
   this.description = book.description ? book.description : 'The book descriptions seems to be missing from the Database we applogise for the inconvience';
 }
+
+client.connect()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`listening on ${PORT}`);
+    })
+  });

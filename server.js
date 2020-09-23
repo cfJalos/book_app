@@ -23,6 +23,7 @@ const PORT = process.env.PORT;
 //Routes
 app.get('/test', (req, res) => res.send('hello testing World'));
 app.get('/', homePage);
+app.get('/books/:id', getOneBook);
 app.get('/searches/new', renderSearch);
 app.post('/search', formInfoCatch);
 app.use('*', noPageHandler);
@@ -71,6 +72,20 @@ function homePage (req,res) {
         numOfBooks : countBooks
       });
     }).catch(err => {throw new Error(err.message);})
+}
+
+function getOneBook(req, res){
+  const id = req.params.id;
+  
+  const sql = 'SELECT * FROM books WHERE id=$1;';
+  const safeValues = [id];
+  client.query(sql, safeValues)
+    .then(results => {
+      // results.rows will look like this: [{my bo}]
+      const myChosenBook = results.rows[0];
+      res.render('pages/books/detail', {book: myChosenBook});
+    })
+    .catch(err => {throw new Error(err.message);})
 }
 
 function noPageHandler(request, response) {

@@ -30,16 +30,15 @@ app.get('/books/:id', getOneBook);
 app.get('/searches/new', renderSearch);
 app.post('/search', formInfoCatch);
 app.post('/books', newBooks);
-app.use('*', noPageHandler);
+app.put('/books/:id',updateHandle);
+app.get('/error', errorHandler)
+app.use('*', errorHandler);
 
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', error => {
   console.log(error);
 });
 
-app.use((err, req, res, next) => {
-  res.status(500).render('./pages/error.ejs',{error: err, error_Msg: err.message});
-});
 
 
 function formInfoCatch (req,res){
@@ -74,14 +73,14 @@ function homePage (req,res) {
 }
 
 function newBooks (req, res) {
-const {author, title, isbn, image_url, description} = req.body;
+  const {author, title, isbn, image_url, description} = req.body;
 
-const SQL = `INSERT INTO books (author, title, image_url, isbn, description) VALUES ($1,$2,$3,$4,$5) RETURNING id;`;
-const safeValues = [author, title, image_url, isbn, description ]
-client.query(SQL, safeValues)
-.then(result => {
-res.redirect(`/books/${result.rows[0].id}`);
-})
+  const SQL = `INSERT INTO books (author, title, image_url, isbn, description) VALUES ($1,$2,$3,$4,$5) RETURNING id;`;
+  const safeValues = [author, title, image_url, isbn, description ]
+  client.query(SQL, safeValues)
+    .then(result => {
+      res.redirect(`/books/${result.rows[0].id}`);
+    })
 }
 
 function getOneBook(req, res){
@@ -95,22 +94,35 @@ function getOneBook(req, res){
       const book = results.rows[0];
       res.render('pages/books/detail.ejs', {books: [book]})
     })
-    .catch(error => {
-      response.status(404).send('./pages/error.ejs',{error: err, error_Mes: err.message});
-    })
 }
 
-function noPageHandler(request, response) {
-// need a redriect to /error
-  response.status(404).send('./pages/error.ejs',{error: err, error_Mes: err.message});
+function updateHandle (req,res){
+  // this is currently returning :id, not a number....
+  const id = req.params.id;
+  console.log('id is',id);
+  const {image_url,title,author,isbn,description} = req.body;
+  let sql = 'UPDATE books SET image_url=$1,title=$2,author=$3,isbn=$4,description=$5 WHERE id=$6;';
+  let safeValues = [image_url,title,author,isbn,description,id];
+  console.log('safevalues are',safeValues);
+  client.query(sql, safeValues);
+  res.status(200).redirect('/');
+}
+
+function errorHandler(request, response) {
+
+  app.use((err, req, res, next) => {
+    res.status(500).render('pages/error',{error: err, error_Msg: err.message});
+  });
+  response.status(404).render('pages/error',{error: err, error_Msg: err.message});
 }
 
 function Book (book) {
-  this.image = book.imageLinks.thumbnail ? book.imageLinks.thumbnail.replace(/^http:\/\//i, 'https://'): `https://i.imgur.com/J5LVHEL.jpg`;
+  this.image = book.imageLinks.thumbnail ? book.imageLinks.thumbnail.replace(/^http:\/\//i, 'https://'): `img/J5LVHEL.jpg`;
 
   this.title = book.title ? book.title : 'the Book title seems to be missing';
   this.author = book.authors ? book.authors : 'The Book Author Info is Missing';
   this.description = book.description ? book.description : 'The book descriptions seems to be missing from the Database we applogise for the inconvience';
+  this.isbn = book.industryIdentifiers[0].identifier ? book.industryIdentifiers[0].identifier: `No number available`;
 }
 
 client.connect()

@@ -13,8 +13,7 @@
     </header>
     <main>
       <h4>My Book Collection</h4><p><%=numOfBooks %></p>
-      <section id="bookbox">
-        <!-- make a form? for submit btn -->
+      <section id="book-box">
         <% bookList.forEach(book => { %>
           <ul class='books'>
            <img class="coverimg" src="<%= book.image_url %>">
@@ -23,7 +22,6 @@
             <div>
               <button class="detail_button"><a href="/books/<%= book.id %>">View Details</button>
             </div>
-          </article>
         <% }) %>
         </section>
       

@@ -1,6 +1,7 @@
 <ul id="book-box">
   <% books.forEach(book => { %>
     <ul class='books'>
+      <li class="id" type="hidden">Book:<%=book.id %></li>
      <img class="coverimg" src="<%= book.image %>">
       <li class = "title">Book title: <%= book.title %></li>
       <li class="author">Author: <%= book.author %></li>

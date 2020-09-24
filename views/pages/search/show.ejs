@@ -9,26 +9,11 @@
     <body>
       <header>
         <h1>Book Search Results</h1>
-        <nav>
-          <ul>
-            <li><a href="/test">test route</a></li>
-            <li><a href="/">Home</a></li>
-            <li><a href='/searches/new'>Search for books</a></li>
-          </ul>
-        </nav>
+        <%- include('../layouts/nav.ejs')%>
       </header>
       <main>
         <!-- might want a form here too -->
-        <ul id="resultbox">
-        <% books.forEach(book => { %>
-          <ul class='books'>
-           <img class="coverimg" src=<%= book.image %>>
-            <li class = "title">Book title: <%= book.title %></li>
-            <li class="author">Author: <%= book.author %></li>
-            <li class= "description">Description: <%= book.description %></li>
-          </ul>
-          <%}) %>
-        </ul>
+<section>  <%- include('../layouts/book_module.ejs')%></section>
       </main>
     </body>
 </html>

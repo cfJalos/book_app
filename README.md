@@ -46,6 +46,8 @@ Currently using:
 
 09-22-2020 4:02pm PST - App has a database hooked up and can display from that database (can not store yet)
 
+09-23-2020 11:15pm PST - App can now edit stored books and store books from the api img still broken and it seems to be nesting my edited books for some reason.
+
 ## work log
 
 [Worklog](worklog.md)

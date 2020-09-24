@@ -6,7 +6,9 @@ require('dotenv').config();
 const express = require('express');
 const superagent = require('superagent');
 const pg = require('pg');
+const { response } = require('express');
 require('ejs');
+const methodOverRide = require('method-override')
 
 const app = express();
 
@@ -15,6 +17,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(express.static('./public'));
 app.use(express.urlencoded({extended:true}));
+app.use(methodOverRide('_method'));
 
 
 //global variables
@@ -26,6 +29,7 @@ app.get('/', homePage);
 app.get('/books/:id', getOneBook);
 app.get('/searches/new', renderSearch);
 app.post('/search', formInfoCatch);
+app.post('/books', newBooks);
 app.use('*', noPageHandler);
 
 const client = new pg.Client(process.env.DATABASE_URL);
@@ -60,7 +64,6 @@ function homePage (req,res) {
   const SQL = 'SELECT * FROM books;';
   client.query(SQL)
     .then(results => {
-      console.log(results);
       let countBooks = results.rowCount;
       const allbooks = results.rows;
       res.render('pages/index.ejs', {
@@ -70,18 +73,30 @@ function homePage (req,res) {
     })
 }
 
+function newBooks (req, res) {
+const {author, title, isbn, image_url, description} = req.body;
+
+const SQL = `INSERT INTO books (author, title, image_url, isbn, description) VALUES ($1,$2,$3,$4,$5) RETURNING id;`;
+const safeValues = [author, title, image_url, isbn, description ]
+client.query(SQL, safeValues)
+.then(result => {
+res.redirect(`/books/${result.rows[0].id}`);
+})
+}
+
 function getOneBook(req, res){
   const id = req.params.id;
   
   const sql = 'SELECT * FROM books WHERE id=$1;';
   const safeValues = [id];
-  console.log(safeValues)
   client.query(sql, safeValues)
     .then(results => {
       // results.rows will look like this: [{my bo}]
       const book = results.rows[0];
-      console.log(book)
       res.render('pages/books/detail.ejs', {books: [book]})
+    })
+    .catch(error => {
+      response.status(404).send('./pages/error.ejs',{error: err, error_Mes: err.message});
     })
 }
 
@@ -91,8 +106,8 @@ function noPageHandler(request, response) {
 }
 
 function Book (book) {
-  console.log(book);
-  this.image = book.imageLinks.thumbnail ? book.imageLinks.thumbnail : 'public/img/J5LVHEL.jpg';
+  this.image = book.imageLinks.thumbnail ? book.imageLinks.thumbnail.replace(/^http:\/\//i, 'https://'): `https://i.imgur.com/J5LVHEL.jpg`;
+
   this.title = book.title ? book.title : 'the Book title seems to be missing';
   this.author = book.authors ? book.authors : 'The Book Author Info is Missing';
   this.description = book.description ? book.description : 'The book descriptions seems to be missing from the Database we applogise for the inconvience';

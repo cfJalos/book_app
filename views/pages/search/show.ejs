@@ -13,7 +13,34 @@
       </header>
       <main>
         <!-- might want a form here too -->
-<section>  <%- include('../layouts/book_module.ejs')%></section>
+<% books.forEach(book => { %>  
+    <section>
+      <ul class='books'>
+        <img class="coverimg" src="<%= book.image %>">
+         <li class = "title">Book title: <%= book.title %></li>
+         <li class="author">Author: <%= book.author %></li>
+         <li class= "description">Description: <%= book.description %></li>
+         <li class="isbn">ISBN: <%= book.isbn %></li> 
+      
+
+      <form action="/books" method="POST">
+        <fieldset>
+          <label for="addbook">Add another book to your collection:</label>
+          <input type="hidden" name="img_url" value="<%= book.img_url %>"></input>
+          <input type="hidden" name="title" value="<%= book.title %>"></input>
+          <input type="hidden" name="author" value="<%= book.author %>"></input>
+          <input type="hidden" name="isbn" value="<%= book.isbn %>"></input>
+          <input type="hidden" name="description" value="<%= book.description %>"></input>
+        <input type="submit" value="Save this book">
+        </fieldset>
+      </form>
+    </ul> 
+    </section>
+  <% }) %>
+</section>
+
+
+
       </main>
     </body>
 </html>

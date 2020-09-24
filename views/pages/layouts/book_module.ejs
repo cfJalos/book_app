@@ -1,10 +1,11 @@
-<% books.forEach(book => { %>
-<ul class='books'>
-  <img class="coverimg" src="<%= book.image_url %>">
-  <li class = "title">Book title: <%= book.title %></li>
-  <li class="author">Author: <%= book.author %></li>
-  <li class= "description">Description: <%= book.description %></li>
-  <li class="isbn">ISBN: <%= book.isbn %></li> 
-  <li class="bookshelf">Bookshelf: </li>
-</ul>
-<% }) %>
+<ul id="book-box">
+  <% books.forEach(book => { %>
+    <ul class='books'>
+     <img class="coverimg" src="<%= book.image %>">
+      <li class = "title">Book title: <%= book.title %></li>
+      <li class="author">Author: <%= book.author %></li>
+      <li class= "description">Description: <%= book.description %></li>
+      <li class="isbn">ISBN: <%= book.isbn %></li> 
+    </ul>
+    <%}) %>
+  </ul>

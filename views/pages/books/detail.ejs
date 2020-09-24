@@ -2,35 +2,20 @@
 <html lang="en">
   <head>
     <title>Book Collection</title>
-    <link href="./styles/reset.css" rel="stylesheet"/>
-    <link href="./styles/base.css" rel="stylesheet"/>
-    <link href="./styles/layout.css" rel="stylesheet"/>
+    <link href="../styles/reset.css" rel="stylesheet"/>
+    <link href="../styles/base.css" rel="stylesheet"/>
+    <link href="../styles/layout.css" rel="stylesheet"/>
   </head>
   <body>
     <header>
       <h1>Book Detail</h1>
-      <nav>
-        <ul>
-          <li><a href="/test">test route</a></li>
-          <li><a href="/">Home</a></li>
-          <li><a href='/searches/new'>Search for books</a></li>
-        </ul>
-      </nav>
+      <%- include('../layouts/nav.ejs')%>
     </header>
     <main>
       <h4>My Book Collection</h4>
-      <section id="one-book">
-        
-          <ul class='books'>
-            <img class="coverimg" src="<%= book.image_url %>">
-            <li class = "title">Book title: <%= book.title %></li>
-            <li class="author">Author: <%= book.author %></li>
-            <li class= "description">Description: <%= book.description %></li>
-            <li class="isbn">ISBN: <%= book.isbn %></li> 
-            <li class="bookshelf">Bookshelf: </li>
-          </ul>
-         
-        </section>
+      <section>
+        <%- include('../layouts/book_module.ejs')%>
+      </section>
       
       
     </main>

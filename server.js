@@ -81,7 +81,7 @@ function getOneBook(req, res){
       // results.rows will look like this: [{my bo}]
       const book = results.rows[0];
       console.log(book)
-      res.render('pages/books/detail.ejs', {book: book})
+      res.render('pages/books/detail.ejs', {books: [book]})
     })
 }
 

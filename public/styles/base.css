@@ -4,8 +4,7 @@
 body {
   background-image: url('/img/background.jpg');
 }
-#resultbox{
+#book-box{
   background-color: rgba(68, 66, 65, 0.719);
   border: 2px black ridge;
-
 }

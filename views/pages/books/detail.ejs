@@ -5,6 +5,7 @@
     <link href="../styles/reset.css" rel="stylesheet"/>
     <link href="../styles/base.css" rel="stylesheet"/>
     <link href="../styles/layout.css" rel="stylesheet"/>
+    <link href="../styles/modules.css" rel="stylesheet"/>
   </head>
   <body>
     <header>
@@ -14,13 +15,22 @@
     <main>
       <h4>My Book Collection</h4>
       <section>
-        <%- include('../layouts/book_module.ejs')%>,
-        <button class="detail_button">Update Details</button>
+        <%- include('../layouts/book_module.ejs') %>
+        <button id='update_btn' class="button">Update Details</button>
+        <!-- next thing to work on make this button delete the book from db -->
+        <button id='delet_btn' class="button">delete Book</button>
+      </section>
+      <section>
+        <%- include('../layouts/edit.ejs') %>
+      </section>
+      
+
 
         
-    </section>
       
       
     </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../app/app.js"></script>
   </body>
 </html>

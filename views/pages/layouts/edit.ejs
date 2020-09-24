@@ -1,15 +1,12 @@
-
-    <form action="/books<% book[0].id %>?_method=PUT" method="POST">
-      <fieldset>
-        <label for="addbook">Add another book to your collection:</label>
-        <input name="img_url" value="<%= book[0].img_url %>"></input>
-        <input name="title" value="<%= book[0].title %>"></input>
-        <input name="author" value="<%= book[0].author %>"></input>
-        <input name="isbn" value="<%= book[0].isbn %>"></input>
-        <input name="description" value="<%= book[0].description %>"></input>
-        <input type="submit" value="Update Book">
-        <button></button>
-      </fieldset>
-    </form>
-  </ul> 
-  </section>
+<% books.forEach(book => { %>
+<form id=editForm action="/books/<%= book.id %>?_method=PUT" method="POST">
+  <fieldset>
+    <input name="image_url" value="<%= book.image_url %>"></input>
+    <input name="title" value="<%= book.title %>"></input>
+    <input name="author" value="<%= book.author %>"></input>
+    <input name="isbn" value="<%= book.isbn %>"></input>
+    <input name="description" value="<%= book.description %>"></input>
+    <input type="submit" value="Update Book">
+  </fieldset>
+</form>
+<%}) %>

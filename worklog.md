@@ -69,3 +69,20 @@
 * Start time: 2:05 pm
 * Finish time: 4:45pm
 * Actual time needed to complete: 2 hours 40 min
+
+### Feature 08
+
+* Name of feature: save book from api
+* Estimate of time needed to complete: 2 hours 15 min
+* Start time: 2:15 pm
+* Finish time: 7:45 pm
+* Actual time needed to complete: 5 hours 30 min
+
+### Feature 09
+
+* Name of feature: edit a stored book
+* Estimate of time needed to complete: 2 hours -- min
+* Start time: 9:45 pm
+* Finish time: 11:15pm
+* Actual time needed to complete: 2 hours 30 min
+
